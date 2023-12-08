@@ -1,0 +1,32 @@
+@host = https://cbonds.com
+@host_api = {{host}}/api
+
+
+### 按 ISIN 搜索 bonds
+# @name getBondID
+POST {{host_api}}/suggest/bonds/ HTTP/1.1
+
+US404280AT69
+
+
+@bond_id = {{getBondID}}
+### 按 bond id 获取资料
+GET {{host}}/bonds/138077/
+
+
+### 按 bond id 获取交易数据
+POST {{host_api}}/chart/get_tradings/ HTTP/1.1
+content-type: application/json
+
+{
+  "items":[{
+    "id":138077,
+    "tgId":4,
+    "model":"bonds"
+  }],
+  "startDate":"2023-09-08",
+  "endDate":"2023-12-08",
+  "chartType":"price",
+  "userChangePeriod":false,
+  "getChartIteration":1
+}
